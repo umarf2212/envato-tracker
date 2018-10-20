@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Hey {% endblock %}
+
+{% block body %}
+
+<h1>All records</h1>
+
+{{ rows }} <br>
+
+<table class="table table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Sales</th>
+        <th>Rating</th>
+        <th>Price (cents)</th>
+        <th>Trending</th>
+        <th>Scrape Time</th>
+        <th>Updated At</th>
+        <th>Site</th>
+    </tr>
+{% for r in records %}
+    <tr>
+        <td>{{r.1}}</td>
+        <td>{{r.2}}</td>
+        <td>{{r.3}}</td>
+        <td>{{r.4}}</td>
+        <td>{{r.5}}</td>
+        <td>{{r.6}}</td>
+        <td>{{r.7}}</td>
+        <td>{{r.8}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

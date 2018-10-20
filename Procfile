@@ -1,0 +1,1 @@
+web: gunicorn envato-tracker.wsgi --log-file - --log-level debug
