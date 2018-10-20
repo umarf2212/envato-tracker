@@ -9,7 +9,6 @@ urlpatterns = [
 	url(r'^codecanyon/wordpress/(\d+)/$', views.codecanyon_wordpress_top_seller),
 	url(r'^codecanyon/php-scripts/(\d+)/$', views.codecanyon_php_scripts_top_seller),
 	url(r'^codecanyon/javascript/(\d+)/$', views.codecanyon_javascript_top_seller),
-	url(r'^ATriggerVerify.txt', views.ATriggerVerify),
 	url(r'^one/(\d+)/$', views.one),
 	#(?P<arg>[\w\-]+)
 ]

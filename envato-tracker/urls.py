@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.home),
     path('show/', views.showRecords),
     path('admin/', admin.site.urls),
-    path('scraper/', include('scraper.urls'))
+    path('scraper/', include('scraper.urls')),
+    path('ATriggerVerify.txt', views.ATriggerVerify),
 ]
