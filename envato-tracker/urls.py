@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from scraper import views
+from scraper import views as scraper_views
 
 urlpatterns = [
-    path('', views.home),
-    path('show/', views.showRecords),
+    path('', scraper_views.home),
+    path('show/', scraper_views.ShowRecords),
     path('admin/', admin.site.urls),
     path('scraper/', include('scraper.urls')),
-    path('ATriggerVerify.txt', views.ATriggerVerify),
+    path('ATriggerVerify.txt', scraper_views.ATriggerVerify),
 ]

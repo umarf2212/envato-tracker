@@ -1,11 +1,32 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db import connection
-from . import BS4
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from scraper.models import ProductData
+from scraper.BS4 import scrape_data, ProductDataIntoModel
 
 def home(request):
 	return HttpResponse('Index')
 
+def ShowRecords(request):
+	product_list = ProductData.objects.all()
+	page = request.GET.get('page', 1)
+
+	paginator = Paginator(product_list, 10)
+
+	try:
+		records = paginator.page(page)
+	except PageNotAnInteger:
+		records = paginator.page(1)
+	except EmptyPage:
+		records = paginator.page(paginator.num_pages)
+
+	return render(request, 'home.html', {
+		'records': records
+	})
+
+# (Deprecated) Old school raw SQL
 def showRecords(request):
 	with connection.cursor() as cursor:
 		cursor.execute('SELECT * FROM product_sales')
@@ -18,36 +39,36 @@ def showRecords(request):
 def themeforest_wordress_top_seller(request, pages):
 	for page in range(1, int(pages)+1):
 		url = 'https://themeforest.net/category/wordpress?sort=sales&page={}'.format(page)
-		data_dict = BS4.scrape_data(url)
-		res = BS4.insert_sales_data(data_dict)
+		data_dict = scrape_data(url)
+		res = ProductDataIntoModel(data_dict)
 	return HttpResponse('Ok.')
 
 def themeforest_html_site_templates_top_seller(request, pages):
 	for page in range(1, int(pages)+1):
 		url = 'https://themeforest.net/category/site-templates?sort=sales&page={}'.format(str(page))
-		data_dict = BS4.scrape_data(url)
-		res = BS4.insert_sales_data(data_dict)
+		data_dict = scrape_data(url)
+		res = ProductDataIntoModel(data_dict)
 	return HttpResponse('Ok.')
 
 def codecanyon_wordpress_top_seller(request, pages):
 	for page in range(1, int(pages)+1):
 		url = 'https://codecanyon.net/category/wordpress?sort=sales&page={}'.format(str(page))
-		data_dict = BS4.scrape_data(url)
-		res = BS4.insert_sales_data(data_dict)
+		data_dict = scrape_data(url)
+		res = ProductDataIntoModel(data_dict)
 	return HttpResponse('Ok.')
 
 def codecanyon_php_scripts_top_seller(request, pages):
 	for page in range(1, int(pages)+1):
 		url = 'https://codecanyon.net/category/php-scripts?sort=sales&page={}'.format(str(page))
-		data_dict = BS4.scrape_data(url)
-		res = BS4.insert_sales_data(data_dict)
+		data_dict = scrape_data(url)
+		res = ProductDataIntoModel(data_dict)
 	return HttpResponse('Ok.')
 
 def codecanyon_javascript_top_seller(request, pages):
 	for page in range(1, int(pages)+1):
 		url = 'https://codecanyon.net/category/javascript?sort=sales&page={}'.format(str(page))
-		data_dict = BS4.scrape_data(url)
-		res = BS4.insert_sales_data(data_dict)
+		data_dict = scrape_data(url)
+		res = ProductDataIntoModel(data_dict)
 	return HttpResponse('Ok.')
 
 def ATriggerVerify(request):

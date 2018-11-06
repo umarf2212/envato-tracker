@@ -4,6 +4,7 @@ import requests
 import json
 import time
 
+from scraper.models import ProductData
 
 """
 Parameters
@@ -39,7 +40,30 @@ def scrape_data(url):
 	return data
 
 """
-Inserts all the product related data into the database.
+Insert product details from dictionary into the 
+Model.
+"""
+def ProductDataIntoModel(d_dict):
+	for i in range(30):
+		product_details = d_dict[i]
+
+		AddProduct = ProductData(
+			product_id = product_details['id'],
+			sales = product_details['number_of_sales'],
+			rating = str(product_details['rating']),
+			price_cents = product_details['price_cents'],
+			trending = product_details['trending'],
+			scrape_time = time.time(),
+			updated_at = product_details['updated_at'],
+			site = product_details['site']
+		)
+		AddProduct.save()
+	return True
+
+"""
+(Deprecated)
+Inserts all the product related data into the database,
+using raw SQL queries.
 30 items per page.
 
 Usage:--
@@ -83,7 +107,9 @@ def insert_data(d_dict):
 
 
 """
-Inserts the number of sales and other stats into the database.
+(Deprecated)
+Inserts the number of sales and other stats into the database,
+using raw SQL queries.
 Usage:--
 
 	fetch_url = 'https://themeforest.net/search/wordpress?sort=sales'

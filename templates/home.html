@@ -20,19 +20,42 @@
         <th>Updated At</th>
         <th>Site</th>
     </tr>
-{% for r in records %}
+{% for record in records %}
     <tr>
-        <td>{{r.0}}</td>
-        <td>{{r.1}}</td>
-        <td>{{r.2}}</td>
-        <td>{{r.3}}</td>
-        <td>{{r.4}}</td>
-        <td>{{r.5}}</td>
-        <td>{{r.6}}</td>
-        <td>{{r.7}}</td>
-        <td>{{r.8}}</td>
+        <td>{{record.id}}</td>
+        <td>{{record.product_id}}</td>
+        <td>{{record.sales}}</td>
+        <td>{{record.rating}}</td>
+        <td>{{record.price_cents}}</td>
+        <td>{{record.trending}}</td>
+        <td>{{record.scrape_time}}</td>
+        <td>{{record.updated_at}}</td>
+        <td>{{record.site}}</td>
     </tr>
 {% endfor %}
 </table>
+
+{% if records.has_other_pages %}
+<ul class="pagination">
+    {%  if records.has_previous %}
+    <li class="page-item"><a href="?page={{ records.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+    <li class="page-item disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in records.paginator.page_range %}
+        {% if records.number == i %}
+        <li class="page-item active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+    {% endfor %}
+    {%  if records.has_next %}
+    <li class="page-item"><a href="?page={{ records.next_page_number }}">&raquo;</a></li>
+    {% else %}
+    <li class="page-item disabled"><span>&raquo;</span></li>
+    {% endif %}
+</ul>
+{% endif %}
+  
 
 {% endblock %}
