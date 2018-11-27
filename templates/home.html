@@ -38,21 +38,22 @@
 {% if records.has_other_pages %}
 <ul class="pagination">
     {%  if records.has_previous %}
-    <li class="page-item"><a href="?page={{ records.previous_page_number }}">&laquo;</a></li>
+    <li class="page-item"><a href="?page={{ records.previous_page_number }}">&laquo;&nbsp;</a></li>
     {% else %}
-    <li class="page-item disabled"><span>&laquo;</span></li>
+    <li class="page-item disabled"><span>&laquo;&nbsp;</span></li>
     {% endif %}
     {% for i in page_range %}
         {% if records.number == i %}
-        <li class="page-item active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        <li class="page-item active"><span>{{ i }} /&nbsp; <span class="sr-only">(current)</span></span></li>
         {% else %}
-        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a> /&nbsp;</li>
         {% endif %}
     {% endfor %}
+    <li class="page-item"><a href="?page={{ last_page }}">Last ({{ last_page }})</a></li>
     {%  if records.has_next %}
-    <li class="page-item"><a href="?page={{ records.next_page_number }}">&raquo;</a></li>
+    <li class="page-item"><a href="?page={{ records.next_page_number }}">&nbsp;&raquo;</a></li>
     {% else %}
-    <li class="page-item disabled"><span>&raquo;</span></li>
+    <li class="page-item disabled"><span>&nbsp;&raquo;</span></li>
     {% endif %}
 </ul>
 {% endif %}

@@ -28,7 +28,8 @@ def ShowRecords(request):
 
 	return render(request, 'home.html', {
 		'records': records,
-		'page_range': page_range
+		'page_range': page_range,
+		'last_page' : paginator.num_pages
 	})
 
 # (Deprecated) Old school raw SQL

@@ -75,7 +75,6 @@ DATABASES = {
         default = config('DATABASE_URL')
     )
 }
-
 """
 DATABASES = {
     'default': {
@@ -84,6 +83,7 @@ DATABASES = {
     }
 }
 """
+
 
 
 # Password validation
