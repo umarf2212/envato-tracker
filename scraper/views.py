@@ -21,9 +21,14 @@ def ShowRecords(request):
 		records = paginator.page(1)
 	except EmptyPage:
 		records = paginator.page(paginator.num_pages)
+	
+	x = records.number - 3 if records.number > 4 else 1
+	y = paginator.num_pages if records.number + 4 > paginator.num_pages else records.number + 4
+	page_range = range(x, y)
 
 	return render(request, 'home.html', {
-		'records': records
+		'records': records,
+		'page_range': page_range
 	})
 
 # (Deprecated) Old school raw SQL

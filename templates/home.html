@@ -42,7 +42,7 @@
     {% else %}
     <li class="page-item disabled"><span>&laquo;</span></li>
     {% endif %}
-    {% for i in records.paginator.page_range %}
+    {% for i in page_range %}
         {% if records.number == i %}
         <li class="page-item active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
         {% else %}
